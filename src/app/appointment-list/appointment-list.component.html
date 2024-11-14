@@ -37,3 +37,12 @@
     Submit
   </button>
 </form>
+
+<div class="container" *ngFor="let item of appointments; index as i">
+  <p>{{ item.id }}</p>
+  <p>{{ item.title }}</p>
+  <p>{{ item.date | date : "dd/MM/yyyy" }}</p>
+  <button type="submit" class="btn btn-danger" (click)="removeItem(i)">
+    delete
+  </button>
+</div>

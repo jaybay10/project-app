@@ -50,4 +50,8 @@ export class AppointmentListComponent implements OnInit {
       alert('Please fill out the form before submitting');
     }
   }
+
+  removeItem(index: number) {
+    this.appointments.splice(index, 1);
+  }
 }
