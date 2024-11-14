@@ -26,6 +26,8 @@ export class AppointmentListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let savedAppointments = localStorage.getItem('appointments');
+    this.appointments = savedAppointments ? JSON.parse(savedAppointments) : [];
     this.buildForm();
   }
 
@@ -35,8 +37,7 @@ export class AppointmentListComponent implements OnInit {
 
   buildForm(): void {
     this.form = this.fb.group({
-      id: new FormControl('', [Validators.required]),
-      title: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
       date: new FormControl('', [Validators.required]),
     });
   }
@@ -44,14 +45,16 @@ export class AppointmentListComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       this.appointments.push(this.form.value);
-      console.log(this.appointments);
       this.form.reset();
     } else {
       alert('Please fill out the form before submitting');
     }
+
+    localStorage.setItem('appointments', JSON.stringify(this.appointments));
   }
 
   removeItem(index: number) {
     this.appointments.splice(index, 1);
+    localStorage.setItem('appointments', JSON.stringify(this.appointments));
   }
 }

@@ -1,48 +1,57 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="container mt-4">
-  <div class="mb-3">
-    <label for="id" class="form-label">ID:</label>
-    <input
-      id="id"
-      formControlName="id"
-      class="form-control"
-      placeholder="Enter ID"
-    />
-    <div *ngIf="f['id']?.invalid && f['id']?.touched" class="text-danger">
-      ID is required.
+<div class="container">
+  <div class="card mt-3 p-5">
+    <div class="row">
+      <div class="col">
+        <h2 class="text-center display-2">Create new appointment</h2>
+      </div>
     </div>
+    <form class="row mt-3" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="col-md-6">
+        <input
+          id="description"
+          formControlName="description"
+          class="form-control"
+          placeholder="Enter description"
+        />
+        <div
+          *ngIf="f['description']?.invalid && f['description']?.touched"
+          class="text-danger"
+        >
+          Description is required.
+        </div>
+      </div>
+      <div class="col-md-4">
+        <input
+          id="date"
+          formControlName="date"
+          type="date"
+          class="form-control"
+        />
+        <div
+          *ngIf="f['date']?.invalid && f['date']?.touched"
+          class="text-danger"
+        >
+          Date is required.
+        </div>
+      </div>
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+          Add
+        </button>
+      </div>
+    </form>
   </div>
 
-  <div class="mb-3">
-    <label for="title" class="form-label">Title:</label>
-    <input
-      id="title"
-      formControlName="title"
-      class="form-control"
-      placeholder="Enter Title"
-    />
-    <div *ngIf="f['title']?.invalid && f['title']?.touched" class="text-danger">
-      Title is required.
-    </div>
-  </div>
-
-  <div class="mb-3">
-    <label for="date" class="form-label">Date:</label>
-    <input id="date" formControlName="date" type="date" class="form-control" />
-    <div *ngIf="f['date']?.invalid && f['date']?.touched" class="text-danger">
-      Date is required.
-    </div>
-  </div>
-
-  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-    Submit
-  </button>
-</form>
-
-<div class="container" *ngFor="let item of appointments; index as i">
-  <p>{{ item.id }}</p>
-  <p>{{ item.title }}</p>
-  <p>{{ item.date | date : "dd/MM/yyyy" }}</p>
-  <button type="submit" class="btn btn-danger" (click)="removeItem(i)">
-    delete
-  </button>
+  <h2 class="text-center mt-5">Appointments</h2>
+  <ul class="list-group mt-3">
+    <li
+      class="list-group-item d-flex justify-content-between align-item-center"
+      *ngFor="let item of appointments; index as i"
+    >
+      {{ item.description }} {{ item.date | date : "dd/MM/yyyy" }}
+      <button type="submit" class="btn btn-danger" (click)="removeItem(i)">
+        delete
+      </button>
+    </li>
+  </ul>
 </div>
