@@ -1,3 +1,39 @@
-<p>{{ appointment.id }}</p>
-<p>{{ appointment.title }}</p>
-<p>{{ appointment.date }}</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="container mt-4">
+  <div class="mb-3">
+    <label for="id" class="form-label">ID:</label>
+    <input
+      id="id"
+      formControlName="id"
+      class="form-control"
+      placeholder="Enter ID"
+    />
+    <div *ngIf="f['id']?.invalid && f['id']?.touched" class="text-danger">
+      ID is required.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="title" class="form-label">Title:</label>
+    <input
+      id="title"
+      formControlName="title"
+      class="form-control"
+      placeholder="Enter Title"
+    />
+    <div *ngIf="f['title']?.invalid && f['title']?.touched" class="text-danger">
+      Title is required.
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="date" class="form-label">Date:</label>
+    <input id="date" formControlName="date" type="date" class="form-control" />
+    <div *ngIf="f['date']?.invalid && f['date']?.touched" class="text-danger">
+      Date is required.
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+    Submit
+  </button>
+</form>
